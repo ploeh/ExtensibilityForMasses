@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Ploeh.Study.ExtensibilityForMasses
 {
-    public class Lit : IExp
+    public class EvalIntAlg : IIntAlg<int>
     {
-        private readonly int x;
-
-        public Lit(int x)
+        public int Add(int e1, int e2)
         {
-            this.x = x;
+            return e1 + e2;
         }
 
-        public A Accept<A>(IIntAlg<A> vis)
+        public int Lit(int x)
         {
-            return vis.Lit(x);
+            return x;
         }
     }
 }

@@ -18,11 +18,8 @@ namespace ExtensibilityForMasses.Test
         public void EvalLit(int x)
         {
             var sut = new Lit(x);
-
-            var actual = sut.Eval();
-
-            var vint = Assert.IsAssignableFrom<VInt>(actual);
-            Assert.Equal(x, vint.Int);
+            var actual = sut.Accept(new EvalIntAlg());
+            Assert.Equal(x, actual);
         }
 
         [Theory]
@@ -35,11 +32,8 @@ namespace ExtensibilityForMasses.Test
         public void EvalSimpleAddition(int l, int r, int expected)
         {
             var sut = new Add(new Lit(l), new Lit(r));
-
-            var actual = sut.Eval();
-
-            var vint = Assert.IsAssignableFrom<VInt>(actual);
-            Assert.Equal(expected, vint.Int);
+            var actual = sut.Accept(new EvalIntAlg());
+            Assert.Equal(expected, actual);
         }
 
         [Theory]
@@ -51,11 +45,8 @@ namespace ExtensibilityForMasses.Test
         public void EvalNestedAddition(int x, int y, int z, int expected)
         {
             var sut = new Add(new Add(new Lit(x), new Lit(y)), new Lit(z));
-
-            var actual = sut.Eval();
-
-            var vint = Assert.IsAssignableFrom<VInt>(actual);
-            Assert.Equal(expected, vint.Int);
+            var actual = sut.Accept(new EvalIntAlg());
+            Assert.Equal(expected, actual);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Ploeh.Study.ExtensibilityForMasses
 {
     public interface IExp
     {
-        IValue Eval();
+        A Accept<A>(IIntAlg<A> vis);
     }
 }
