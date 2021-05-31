@@ -41,5 +41,21 @@ namespace ExtensibilityForMasses.Test
             var vint = Assert.IsAssignableFrom<VInt>(actual);
             Assert.Equal(expected, vint.Int);
         }
+
+        [Theory]
+        [InlineData(-1, 00, 00, -1)]
+        [InlineData(00, 00, 00, 00)]
+        [InlineData(01, 00, 00, 01)]
+        [InlineData(01, 02, 00, 03)]
+        [InlineData(01, 02, 04, 07)]
+        public void EvalNestedAddition(int x, int y, int z, int expected)
+        {
+            var sut = new Add(new Add(new Lit(x), new Lit(y)), new Lit(z));
+
+            var actual = sut.Eval();
+
+            var vint = Assert.IsAssignableFrom<VInt>(actual);
+            Assert.Equal(expected, vint.Int);
+        }
     }
 }
