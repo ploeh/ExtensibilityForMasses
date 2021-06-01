@@ -103,5 +103,20 @@ namespace ExtensibilityForMasses.Test
             var actual = exp.Accept(new EvalIntAlg());
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(  "-1 + -2", -3)]
+        [InlineData(  "-1 +  2", 01)]
+        [InlineData(  " 0 +  0", 00)]
+        [InlineData(  " 0 +  2", 02)]
+        [InlineData(  "10 +  2", 12)]
+        [InlineData(  "19 + 23", 42)]
+        [InlineData("1 + 2 + 3", 06)]
+        public void ParseAndEvaluateSums(string s, int expected)
+        {
+            var exp = new IntFactory().ParseExp(s);
+            var actual = exp.Accept(new EvalIntAlg());
+            Assert.Equal(expected, actual);
+        }
     }
 }

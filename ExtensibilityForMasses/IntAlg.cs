@@ -18,7 +18,11 @@ namespace Ploeh.Study.ExtensibilityForMasses
             if (int.TryParse(s, out var x))
                 return f.Lit(x);
             else
-                throw new NotImplementedException();
+            {
+                return s.Split('+')
+                    .Select(x => f.Lit(int.Parse(x)))
+                    .Aggregate(f.Add);
+            }
         }
     }
 }
