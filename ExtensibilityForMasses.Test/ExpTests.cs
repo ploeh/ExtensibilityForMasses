@@ -89,5 +89,19 @@ namespace ExtensibilityForMasses.Test
             var actual = exp.Accept(new Print2());
             Assert.Equal("3 + 5", actual);
         }
+
+        [Theory]
+        [InlineData("-98", -98)]
+        [InlineData("-04", -04)]
+        [InlineData("000", 000)]
+        [InlineData("002", 002)]
+        [InlineData("042", 042)]
+        [InlineData("119", 119)]
+        public void ParseIntegers(string s, int expected)
+        {
+            var exp = new IntFactory().ParseExp(s);
+            var actual = exp.Accept(new EvalIntAlg());
+            Assert.Equal(expected, actual);
+        }
     }
 }

@@ -12,5 +12,13 @@ namespace Ploeh.Study.ExtensibilityForMasses
         {
             return f.Add(f.Lit(3), f.Lit(5));
         }
+
+        public static A ParseExp<A>(this IIntAlg<A> f, string s)
+        {
+            if (int.TryParse(s, out var x))
+                return f.Lit(x);
+            else
+                throw new NotImplementedException();
+        }
     }
 }
