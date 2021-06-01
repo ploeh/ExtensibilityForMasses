@@ -48,5 +48,30 @@ namespace ExtensibilityForMasses.Test
             var actual = sut.Accept(new EvalIntAlg());
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(-1, "-1")]
+        [InlineData(00,  "0")]
+        [InlineData(10, "10")]
+        public void PrintLit(int x, string expected)
+        {
+            var sut = new Lit(x);
+            var actual = sut.Accept(new Print2());
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(-1, 00, 00, "-1 + 0 + 0")]
+        [InlineData(00, 00, 00,  "0 + 0 + 0")]
+        [InlineData(01, 00, 00,  "1 + 0 + 0")]
+        [InlineData(01, 02, 00,  "1 + 2 + 0")]
+        [InlineData(01, 02, 04,  "1 + 2 + 4")]
+        [InlineData(11, 03, 04, "11 + 3 + 4")]
+        public void PrintAddition(int x, int y, int z, string expected)
+        {
+            var sut = new Add(new Lit(x), new Add(new Lit(y), new Lit(z)));
+            var actual = sut.Accept(new Print2());
+            Assert.Equal(expected, actual);
+        }
     }
 }
