@@ -73,5 +73,13 @@ namespace ExtensibilityForMasses.Test
             var actual = sut.Accept(new Print2());
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Test3Plus5()
+        {
+            IExp e = IntAlg.Make3Plus5(new IntFactory());
+            var actual = e.Accept(new EvalIntAlg());
+            Assert.Equal(3 + 5, actual);
+        }
     }
 }
