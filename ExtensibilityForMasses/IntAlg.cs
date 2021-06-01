@@ -8,7 +8,7 @@ namespace Ploeh.Study.ExtensibilityForMasses
 {
     public static class IntAlg
     {
-        public static A Make3Plus5<A>(IIntAlg<A> f)
+        public static A Make3Plus5<A>(this IIntAlg<A> f)
         {
             return f.Add(f.Lit(3), f.Lit(5));
         }
