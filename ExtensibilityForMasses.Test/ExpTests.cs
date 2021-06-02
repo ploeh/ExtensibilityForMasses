@@ -154,5 +154,13 @@ namespace ExtensibilityForMasses.Test
             Assert.Equal(7, x);
             Assert.Equal("3 + 4", s);
         }
+
+        [Fact]
+        public void Print2Example()
+        {
+            var p = new Print2();
+            var s = p.Make3Plus4();
+            Assert.Equal("3 + 4", s);
+        }
     }
 }
