@@ -118,5 +118,28 @@ namespace ExtensibilityForMasses.Test
             var actual = exp.Accept(new EvalIntAlg());
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(-4, "-4")]
+        [InlineData(00,  "0")]
+        [InlineData(07,  "7")]
+        [InlineData(24, "24")]
+        public void PrintLitViaInterface(int x, string expected)
+        {
+            var sut = new IntPrint();
+            var actual = sut.Lit(x).Print();
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(-2, -4, "-2 + -4")]
+        [InlineData(-3, 17, "-3 + 17")]
+        [InlineData(88, 91, "88 + 91")]
+        public void PrintSumViaInterface(int x, int y, string expected)
+        {
+            var sut = new IntPrint();
+            var actual = sut.Add(sut.Lit(x), sut.Lit(y)).Print();
+            Assert.Equal(expected, actual);
+        }
     }
 }
