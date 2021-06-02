@@ -13,6 +13,11 @@ namespace Ploeh.Study.ExtensibilityForMasses
             return f.Add(f.Lit(3), f.Lit(5));
         }
 
+        public static A Make3Plus4<A>(this IIntAlg<A> v)
+        {
+            return v.Add(v.Lit(3), v.Lit(4));
+        }
+
         public static A ParseExp<A>(this IIntAlg<A> f, string s)
         {
             if (int.TryParse(s, out var x))

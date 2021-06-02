@@ -141,5 +141,18 @@ namespace ExtensibilityForMasses.Test
             var actual = sut.Add(sut.Lit(x), sut.Lit(y)).Print();
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Use3Plus4WithPrintInterface()
+        {
+            var @base = new IntFactory();
+            var print = new IntPrint();
+
+            var x = @base.Make3Plus4().Accept(new EvalIntAlg());
+            var s = print.Make3Plus4().Print();
+
+            Assert.Equal(7, x);
+            Assert.Equal("3 + 4", s);
+        }
     }
 }
