@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Ploeh.Study.ExtensibilityForMasses
 {
-    public sealed class Bool : IExp
+    public class IntBoolFactory : IntFactory, IIntBoolAlg<IExp>
     {
-        private readonly bool b;
-
-        public Bool(bool b)
+        public IExp Bool(bool b)
         {
-            this.b = b;
+            return new Bool(b);
         }
 
-        public A Accept<A>(IIntAlg<A> vis)
+        public IExp Iff(IExp e1, IExp e2, IExp e3)
         {
-            throw new NotImplementedException();
+            return new Iff(e1, e2, e3);
         }
     }
 }

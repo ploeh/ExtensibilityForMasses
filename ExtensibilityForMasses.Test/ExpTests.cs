@@ -162,5 +162,28 @@ namespace ExtensibilityForMasses.Test
             var s = p.Make3Plus4();
             Assert.Equal("3 + 4", s);
         }
+
+        [Theory]
+        [InlineData( true,  "True")]
+        [InlineData(false, "False")]
+        public void PrintBool(bool b, string expected)
+        {
+            var sut = new IntBoolPrint();
+            var actual = sut.Bool(b).Print();
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData( true,  true,  true, "if (True) then True else True")]
+        [InlineData(false,  true,  true, "if (False) then True else True")]
+        [InlineData(false, false,  true, "if (False) then False else True")]
+        [InlineData(false, false, false, "if (False) then False else False")]
+        public void PrintIff(bool b1, bool b2, bool b3, string expected)
+        {
+            var sut = new IntBoolPrint();
+            var actual =
+                sut.Iff(sut.Bool(b1), sut.Bool(b2), sut.Bool(b3)).Print();
+            Assert.Equal(expected, actual);
+        }
     }
 }
