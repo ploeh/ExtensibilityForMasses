@@ -185,5 +185,22 @@ namespace ExtensibilityForMasses.Test
                 sut.Iff(sut.Bool(b1), sut.Bool(b2), sut.Bool(b3)).Print();
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void PrintNestedNonsense()
+        {
+            var p = new IntBoolPrint();
+            var five = p.Lit(5);
+            var seven = p.Lit(7);
+            var add = p.Add(five, seven);
+            var innerIff = p.Iff(add, p.Bool(false), p.Lit(2));
+            var outerIff = p.Iff(innerIff, p.Lit(6), p.Bool(true));
+
+            var actual = outerIff.Print();
+
+            var expected =
+                "if (if (5 + 7) then False else 2) then 6 else True";
+            Assert.Equal(expected, actual);
+        }
     }
 }
