@@ -202,5 +202,16 @@ namespace ExtensibilityForMasses.Test
                 "if (if (5 + 7) then False else 2) then 6 else True";
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void FirstExampleInSection5Dot3()
+        {
+            static A exp<A>(IIntAlg<A> v) => v.Add(v.Lit(3), v.Lit(4));
+            var p2 = new IntBoolPrint();
+
+            var actual = exp(p2).Print();
+
+            Assert.Equal("3 + 4", actual);
+        }
     }
 }
