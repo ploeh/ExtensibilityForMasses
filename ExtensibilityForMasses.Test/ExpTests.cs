@@ -224,5 +224,15 @@ namespace ExtensibilityForMasses.Test
 
             Assert.Equal("if (False) then 3 + 4 else 0", actual);
         }
+
+        [Theory]
+        [InlineData(false)]
+        [InlineData( true)]
+        public void EvalBool(bool expected)
+        {
+            var sut = new Bool(expected);
+            var actual = sut.Eval();
+            Assert.Equal(expected, actual.Bool);
+        }
     }
 }
