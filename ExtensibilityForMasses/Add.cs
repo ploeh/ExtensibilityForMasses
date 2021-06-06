@@ -17,11 +17,6 @@ namespace Ploeh.Study.ExtensibilityForMasses
             this.r = r;
         }
 
-        public A Accept<A>(IIntAlg<A> vis)
-        {
-            return vis.Add(l.Accept(vis), r.Accept(vis));
-        }
-
         public IValue Eval()
         {
             return new VInt(l.Eval().Int + r.Eval().Int);

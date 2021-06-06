@@ -15,11 +15,6 @@ namespace Ploeh.Study.ExtensibilityForMasses
             this.x = x;
         }
 
-        public A Accept<A>(IIntAlg<A> vis)
-        {
-            return vis.Lit(x);
-        }
-
         public IValue Eval()
         {
             return new VInt(x);
