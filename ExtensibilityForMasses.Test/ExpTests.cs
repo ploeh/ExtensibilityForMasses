@@ -32,7 +32,7 @@ namespace ExtensibilityForMasses.Test
         public void EvalSimpleAddition(int l, int r, int expected)
         {
             var sut = new Add(new Lit(l), new Lit(r));
-            var actual = sut.Accept(new EvalIntAlg());
+            var actual = sut.Eval().Int;
             Assert.Equal(expected, actual);
         }
 
