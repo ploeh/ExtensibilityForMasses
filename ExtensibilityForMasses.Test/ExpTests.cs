@@ -145,7 +145,7 @@ namespace ExtensibilityForMasses.Test
             var @base = new IntFactory();
             var print = new IntPrint();
 
-            var x = @base.Make3Plus4().Accept(new EvalIntAlg());
+            var x = @base.Make3Plus4().Eval().Int;
             var s = print.Make3Plus4().Print();
 
             Assert.Equal(7, x);
