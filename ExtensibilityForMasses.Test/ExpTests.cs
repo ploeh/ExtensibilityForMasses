@@ -78,7 +78,7 @@ namespace ExtensibilityForMasses.Test
         public void Test3Plus5()
         {
             IExp e = IntAlg.Make3Plus5(new IntFactory());
-            var actual = e.Accept(new EvalIntAlg());
+            var actual = e.Eval().Int;
             Assert.Equal(3 + 5, actual);
         }
 
