@@ -45,7 +45,7 @@ namespace ExtensibilityForMasses.Test
         public void EvalNestedAddition(int x, int y, int z, int expected)
         {
             var sut = new Add(new Add(new Lit(x), new Lit(y)), new Lit(z));
-            var actual = sut.Accept(new EvalIntAlg());
+            var actual = sut.Eval().Int;
             Assert.Equal(expected, actual);
         }
 
