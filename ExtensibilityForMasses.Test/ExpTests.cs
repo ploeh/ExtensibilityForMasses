@@ -69,8 +69,8 @@ namespace ExtensibilityForMasses.Test
         [InlineData(11, 03, 04, "11 + 3 + 4")]
         public void PrintAddition(int x, int y, int z, string expected)
         {
-            var sut = new Add(new Lit(x), new Add(new Lit(y), new Lit(z)));
-            var actual = sut.Accept(new Print2());
+            var sut = new Print2();
+            var actual = sut.Add(sut.Lit(x), sut.Add(sut.Lit(y), sut.Lit(z)));
             Assert.Equal(expected, actual);
         }
 
