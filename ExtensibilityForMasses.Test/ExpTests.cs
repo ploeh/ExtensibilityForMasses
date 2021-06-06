@@ -85,8 +85,7 @@ namespace ExtensibilityForMasses.Test
         [Fact]
         public void UseMake3Plus5AsExtensionMethod()
         {
-            var exp = new IntFactory().Make3Plus5();
-            var actual = exp.Accept(new Print2());
+            var actual = new Print2().Make3Plus5();
             Assert.Equal("3 + 5", actual);
         }
 
