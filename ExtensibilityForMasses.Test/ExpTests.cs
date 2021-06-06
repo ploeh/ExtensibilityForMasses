@@ -234,5 +234,19 @@ namespace ExtensibilityForMasses.Test
             var actual = sut.Eval();
             Assert.Equal(expected, actual.Bool);
         }
+
+        [Theory]
+        [InlineData(false, false, false, false)]
+        [InlineData( true, false, false, false)]
+        [InlineData(false,  true, false, false)]
+        [InlineData(false, false,  true,  true)]
+        [InlineData( true,  true, false,  true)]
+        [InlineData( true,  true,  true,  true)]
+        public void EvalIff(bool x, bool y, bool z, bool expected)
+        {
+            var sut = new Iff(new Bool(x), new Bool(y), new Bool(z));
+            var actual = sut.Eval();
+            Assert.Equal(expected, actual.Bool);
+        }
     }
 }

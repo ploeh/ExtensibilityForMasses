@@ -21,7 +21,7 @@ namespace Ploeh.Study.ExtensibilityForMasses
 
         public IValue Eval()
         {
-            throw new NotImplementedException();
+            return e1.Eval().Bool ? e2.Eval() : e3.Eval();
         }
     }
 }
