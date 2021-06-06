@@ -18,7 +18,7 @@ namespace ExtensibilityForMasses.Test
         public void EvalLit(int x)
         {
             var sut = new Lit(x);
-            var actual = sut.Accept(new EvalIntAlg());
+            var actual = sut.Eval().Int;
             Assert.Equal(x, actual);
         }
 
