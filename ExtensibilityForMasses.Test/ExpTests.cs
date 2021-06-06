@@ -98,8 +98,7 @@ namespace ExtensibilityForMasses.Test
         [InlineData("119", 119)]
         public void ParseIntegers(string s, int expected)
         {
-            var exp = new IntFactory().ParseExp(s);
-            var actual = exp.Accept(new EvalIntAlg());
+            var actual = new EvalIntAlg().ParseExp(s);
             Assert.Equal(expected, actual);
         }
 
