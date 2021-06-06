@@ -21,5 +21,10 @@ namespace Ploeh.Study.ExtensibilityForMasses
         {
             return vis.Add(l.Accept(vis), r.Accept(vis));
         }
+
+        public IValue Eval()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

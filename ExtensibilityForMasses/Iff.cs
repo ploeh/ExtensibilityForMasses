@@ -23,5 +23,10 @@ namespace Ploeh.Study.ExtensibilityForMasses
         {
             throw new NotImplementedException();
         }
+
+        public IValue Eval()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
