@@ -112,8 +112,7 @@ namespace ExtensibilityForMasses.Test
         [InlineData("1 + 2 + 3", 06)]
         public void ParseAndEvaluateSums(string s, int expected)
         {
-            var exp = new IntFactory().ParseExp(s);
-            var actual = exp.Accept(new EvalIntAlg());
+            var actual = new EvalIntAlg().ParseExp(s);
             Assert.Equal(expected, actual);
         }
 
