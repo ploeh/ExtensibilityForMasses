@@ -55,8 +55,8 @@ namespace ExtensibilityForMasses.Test
         [InlineData(10, "10")]
         public void PrintLit(int x, string expected)
         {
-            var sut = new Lit(x);
-            var actual = sut.Accept(new Print2());
+            var sut = new Print2();
+            var actual = sut.Lit(x);
             Assert.Equal(expected, actual);
         }
 
