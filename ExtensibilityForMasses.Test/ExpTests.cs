@@ -213,5 +213,19 @@ namespace ExtensibilityForMasses.Test
 
             Assert.Equal("3 + 4", actual);
         }
+
+        [Fact]
+        public void SecondExampleInSection5Dot3()
+        {
+            static A exp<A>(IIntAlg<A> v) => v.Add(v.Lit(3), v.Lit(4));
+            static A exp2<A>(IIntBoolAlg<A> v) =>
+                v.Iff(v.Bool(false), exp(v), v.Lit(0));
+            var p = new IntPrint();
+
+            // var _ = exp2(p).Print(); // Type error
+            var actual = exp2(new IntBoolPrint()).Print();
+
+            Assert.Equal("if (False) then 3 + 4 else 0", actual);
+        }
     }
 }
