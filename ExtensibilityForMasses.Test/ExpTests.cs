@@ -271,6 +271,8 @@ namespace ExtensibilityForMasses.Test
                 v.Assign("x", v.Add(v.Lit(3), v.Lit(4)));
             static S stmt<E, S>(IStmtAlg<E, S> v) =>
                 v.Comp(v.Expr(exp(v)), v.Expr(v.Var("x")));
+            //S badStmt<E, S>(IStmtAlg<E, S> v) =>
+            //    v.Comp(exp(v), v.Var("x")); // Type error
 
             var factory = new StmtFactory();
             exp(factory).Eval();
