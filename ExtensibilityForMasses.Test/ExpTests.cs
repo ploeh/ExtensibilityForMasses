@@ -263,5 +263,20 @@ namespace ExtensibilityForMasses.Test
             Assert.Equal(expected, evaluatedExp.Eval().Int);
             Assert.Equal(expected, actual.Eval().Int);
         }
+
+        [Fact]
+        public void FirstExampleInSection6Dot2()
+        {
+            static E exp<E, S>(IStmtAlg<E, S> v) =>
+                v.Assign("x", v.Add(v.Lit(3), v.Lit(4)));
+            static S stmt<E, S>(IStmtAlg<E, S> v) =>
+                v.Comp(v.Expr(exp(v)), v.Expr(v.Var("x")));
+
+            var factory = new StmtFactory();
+            exp(factory).Eval();
+            stmt(factory).Eval();
+
+            Assert.Equal(7, factory.Var("x").Eval().Int);
+        }
     }
 }
