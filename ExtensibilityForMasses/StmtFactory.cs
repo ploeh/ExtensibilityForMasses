@@ -65,12 +65,45 @@ namespace Ploeh.Study.ExtensibilityForMasses
 
         public IStmt Comp(IStmt e1, IStmt e2)
         {
-            throw new NotImplementedException();
+            return new CompStmt(e1, e2);
+        }
+
+        private class CompStmt : IStmt
+        {
+            private readonly IStmt e1;
+            private readonly IStmt e2;
+
+            public CompStmt(IStmt e1, IStmt e2)
+            {
+                this.e1 = e1;
+                this.e2 = e2;
+            }
+
+            public void Eval()
+            {
+                e1.Eval();
+                e2.Eval();
+            }
         }
 
         public IStmt Expr(IExp e)
         {
-            throw new NotImplementedException();
+            return new ExprStmt(e);
+        }
+
+        private class ExprStmt : IStmt
+        {
+            private readonly IExp e;
+
+            public ExprStmt(IExp e)
+            {
+                this.e = e;
+            }
+
+            public void Eval()
+            {
+                e.Eval();
+            }
         }
     }
 }
