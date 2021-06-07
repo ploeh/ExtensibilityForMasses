@@ -248,5 +248,20 @@ namespace ExtensibilityForMasses.Test
             var actual = sut.Eval();
             Assert.Equal(expected, actual.Bool);
         }
+
+        [Theory]
+        [InlineData("foo", -1)]
+        [InlineData("foo", 00)]
+        [InlineData("bar", 42)]
+        public void AssignLitVar(string name, int expected)
+        {
+            var sut = new StmtFactory();
+
+            var evaluatedExp = sut.Assign(name, sut.Lit(expected));
+            var actual = sut.Var(name);
+
+            Assert.Equal(expected, evaluatedExp.Eval().Int);
+            Assert.Equal(expected, actual.Eval().Int);
+        }
     }
 }
