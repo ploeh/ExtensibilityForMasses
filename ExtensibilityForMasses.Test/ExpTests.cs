@@ -280,5 +280,17 @@ namespace ExtensibilityForMasses.Test
 
             Assert.Equal(7, factory.Var("x").Eval().Int);
         }
+
+        [Fact]
+        public void UseIntBoolFactory2()
+        {
+            var sut = new IntBoolFactory2();
+            var actual =
+                sut.Iff(
+                    sut.Bool(false),
+                    sut.Lit(5),
+                    sut.Add(sut.Lit(3), sut.Lit(8)));
+            Assert.Equal(11, actual.Eval().Int);
+        }
     }
 }
