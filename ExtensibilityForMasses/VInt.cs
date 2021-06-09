@@ -10,5 +10,10 @@
         public int Int { get; }
 
         public bool Bool => throw new System.NotImplementedException();
+
+        public override string ToString()
+        {
+            return Int.ToString();
+        }
     }
 }

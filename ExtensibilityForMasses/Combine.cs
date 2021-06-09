@@ -22,7 +22,7 @@ namespace Ploeh.Study.ExtensibilityForMasses
             return new Pair<A, B>(v1.Lit(x), v2.Lit(x));
         }
 
-        public Pair<A, B> Add(Pair<A, B> e1, Pair<A, B> e2)
+        public virtual Pair<A, B> Add(Pair<A, B> e1, Pair<A, B> e2)
         {
             return new Pair<A, B>(
                 v1.Add(e1.TheA, e2.TheA),

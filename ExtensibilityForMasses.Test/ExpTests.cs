@@ -1,6 +1,7 @@
 ﻿using Ploeh.Study.ExtensibilityForMasses;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -306,6 +307,30 @@ namespace ExtensibilityForMasses.Test
 
             Assert.Equal(1379, actual.TheA);
             Assert.Equal("foo + bar", actual.TheB);
+        }
+
+        [Fact]
+        public void DebugExample()
+        {
+            var sut = new Debug();
+            var e1 = sut.Lit( 2112);
+            var e2 = sut.Add(sut.Lit(90125), sut.Lit(5150));
+            var originalOut = Console.Out;
+            using var sw = new StringWriter();
+            Console.SetOut(sw);
+            try
+            {
+                var actual = sut.Add(e1, e2);
+
+                Assert.Equal(
+                    "The first expression 2112 evaluates to 2112" + Environment.NewLine +
+                    "The second expression 90125 + 5150 evaluates to 95275" + Environment.NewLine,
+                    sw.ToString());
+            }
+            finally
+            {
+                Console.SetOut(originalOut);
+            }
         }
     }
 }
