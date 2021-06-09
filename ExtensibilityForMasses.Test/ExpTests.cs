@@ -292,5 +292,20 @@ namespace ExtensibilityForMasses.Test
                     sut.Add(sut.Lit(3), sut.Lit(8)));
             Assert.Equal(11, actual.Eval().Int);
         }
+
+        [Fact]
+        public void CombineExample()
+        {
+            var sut =
+                new Combine<int, string>(new EvalIntAlg(), new Print2());
+
+            var actual =
+                sut.Add(
+                    new Pair<int, string>(  42, "foo"),
+                    new Pair<int, string>(1337, "bar"));
+
+            Assert.Equal(1379, actual.TheA);
+            Assert.Equal("foo + bar", actual.TheB);
+        }
     }
 }
