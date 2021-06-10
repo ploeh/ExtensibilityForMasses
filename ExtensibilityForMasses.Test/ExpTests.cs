@@ -332,5 +332,68 @@ namespace ExtensibilityForMasses.Test
                 Console.SetOut(originalOut);
             }
         }
+
+        /* This test attempts to demonstrate that GUnion not only works in its
+         * own right, but that it can be used to extend the interfaces it
+         * composes.
+         * In order to demonstrate that, I've 'extended' the IBoolAlg
+         * interface, and then created a new union of interfaces called
+         * IIntBoolExtra. The derived class GUnionExtra only has to implement
+         * the extra method, while it inherits all the base implementations
+         * from GUnion.
+         * I think that's the point of that class... */
+        [Fact]
+        public void GUnionBoolExample()
+        {
+            var sut = new GUnionExtra<IExp>(
+                new BoolExtraFactory(),
+                new IntFactory());
+
+            Assert.Equal("foo", sut.ExtraMember());
+            Assert.False(sut.Bool(false).Eval().Bool);
+            Assert.True(sut.Bool(true).Eval().Bool);
+            Assert.True(sut.Iff(
+                sut.Bool(false),
+                sut.Bool(false),
+                sut.Bool(true)).Eval().Bool);
+            Assert.Equal(42, sut.Lit(42).Eval().Int);
+            Assert.Equal(
+                9,
+                sut.Add(sut.Lit(3), sut.Lit(6)).Eval().Int);
+        }
+
+        private interface IBoolAlgExtra<A> : IBoolAlg<A>
+        {
+            string ExtraMember();
+        }
+
+        private class BoolExtraFactory : BoolFactory, IBoolAlgExtra<IExp>
+        {
+            public string ExtraMember()
+            {
+                return "foo";
+            }
+        }
+
+        private interface IIntBoolExtra<A> : IIntAlg<A>, IBoolAlgExtra<A>
+        {
+        }
+
+        private class GUnionExtra<A> :
+            GUnion<A, IBoolAlgExtra<A>, IIntAlg<A>>, IIntBoolExtra<A>
+        {
+            private readonly IBoolAlgExtra<A> v1;
+
+            public GUnionExtra(IBoolAlgExtra<A> v1, IIntAlg<A> v2) :
+                base(v1, v2)
+            {
+                this.v1 = v1;
+            }
+
+            public string ExtraMember()
+            {
+                return v1.ExtraMember();
+            }
+        }
     }
 }
