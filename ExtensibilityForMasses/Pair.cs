@@ -16,5 +16,17 @@ namespace Ploeh.Study.ExtensibilityForMasses
 
         public A TheA { get; }
         public B TheB { get; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Pair<A, B> pair &&
+                   EqualityComparer<A>.Default.Equals(TheA, pair.TheA) &&
+                   EqualityComparer<B>.Default.Equals(TheB, pair.TheB);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(TheA, TheB);
+        }
     }
 }

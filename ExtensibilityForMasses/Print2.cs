@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ploeh.Study.ExtensibilityForMasses
 {
-    public sealed class Print2 : IIntAlg<string>
+    public class Print2 : IIntAlg<string>
     {
         public string Add(string e1, string e2)
         {

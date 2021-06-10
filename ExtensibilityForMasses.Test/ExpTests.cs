@@ -395,5 +395,55 @@ namespace ExtensibilityForMasses.Test
                 return v1.ExtraMember();
             }
         }
+
+        [Fact]
+        public void GCombineExample()
+        {
+            var sut = new CombineMonoid();
+
+            Assert.Equal(new Pair<int, string>(0, ""), sut.Identity);
+            Assert.Equal(new Pair<int, string>(48, "48"), sut.Lit(48));
+            Assert.Equal(
+                new Pair<int, string>(42, "40 + 2"),
+                sut.Add(sut.Lit(40), sut.Lit(2)));
+
+        }
+
+        private interface IIntMonoid<A> : IIntAlg<A>
+        {
+            A Identity { get; }
+        }
+
+        private class EvalIntMonoid : EvalIntAlg, IIntMonoid<int>
+        {
+            public int Identity => 0;
+        }
+
+        private class Print2Monoid : Print2, IIntMonoid<string>
+        {
+            public string Identity => "";
+        }
+
+        private class CombineMonoid :
+            GCombine<int, string, IIntMonoid<int>, IIntMonoid<string>>,
+            IIntMonoid<Pair<int, string>>
+        {
+            private readonly IIntMonoid<int> v1;
+            private readonly IIntMonoid<string> v2;
+
+            public CombineMonoid() :
+                this(new EvalIntMonoid(), new Print2Monoid())
+            {
+            }
+
+            private CombineMonoid(IIntMonoid<int> v1, IIntMonoid<string> v2) :
+                base(v1, v2)
+            {
+                this.v1 = v1;
+                this.v2 = v2;
+            }
+
+            public Pair<int, string> Identity => new(v1.Identity, v2.Identity);
+        }
     }
 }
