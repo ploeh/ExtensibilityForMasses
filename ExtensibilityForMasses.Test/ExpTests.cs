@@ -445,5 +445,84 @@ namespace ExtensibilityForMasses.Test
 
             public Pair<int, string> Identity => new(v1.Identity, v2.Identity);
         }
+
+        [Fact]
+        public void EvalExample()
+        {
+            var sut = new InvertibleEval(new InvertibleIntVal());
+
+            var actual = sut.Add(sut.Lit(4), sut.Lit(7));
+            var inverted = sut.Invert(actual);
+
+            Assert.Equal(11, actual.Int);
+            Assert.Equal(-11, inverted.Int);
+            Assert.Equal("xxxxxxxxxxx", actual.Repeat('x'));
+        }
+
+        private class InvertibleEval :
+            Eval<ICharRepeater, IInvertibleVal<ICharRepeater>>,
+            IInvertibleVal<ICharRepeater>
+        {
+            public InvertibleEval(IInvertibleVal<ICharRepeater> valFact) :
+                base(valFact)
+            {
+            }
+
+            public ICharRepeater Invert(ICharRepeater v)
+            {
+                return valFact.Invert(v);
+            }
+        }
+
+        private class IntValue : IIntValue
+        {
+            protected readonly int x;
+
+            public IntValue(int x)
+            {
+                this.x = x;
+            }
+
+            public int Int => x;
+        }
+
+        private interface ICharRepeater : IIntValue
+        {
+            string Repeat(char c);
+        }
+
+        private class CharRepeater : IntValue, ICharRepeater
+        {
+            public CharRepeater(int x) : base(x)
+            {
+            }
+
+            public string Repeat(char c)
+            {
+                return new string(c, x);
+            }
+        }
+
+        private class IntValueIntVal : IIntVal<ICharRepeater>
+        {
+            public ICharRepeater Lit(int x)
+            {
+                return new CharRepeater(x);
+            }
+        }
+
+        private interface IInvertibleVal<A> : IIntVal<A>
+        {
+            A Invert(A v);
+        }
+
+        private class InvertibleIntVal :
+            IntValueIntVal, IInvertibleVal<ICharRepeater>
+        {
+            public ICharRepeater Invert(ICharRepeater v)
+            {
+                return Lit(-v.Int);
+            }
+        }
     }
 }
